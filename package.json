@@ -1,0 +1,19 @@
+{
+  "name": "blurt",
+  "version": "1.0.0",
+  "description": "blurt it out",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joefearnley/blurt.git"
+  },
+  "author": "Joe Fearnley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joefearnley/blurt/issues"
+  },
+  "homepage": "https://github.com/joefearnley/blurt#readme"
+}
