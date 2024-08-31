@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tweets",
+  "info": {
+    "singularName": "tweet",
+    "pluralName": "tweets",
+    "displayName": "Tweet",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "retweeted": {
+      "type": "boolean"
+    },
+    "source": {
+      "type": "string"
+    },
+    "entities": {
+      "type": "json"
+    },
+    "favorite_count": {
+      "type": "integer"
+    },
+    "in_reply_to_status_id_str": {
+      "type": "string"
+    },
+    "id_str": {
+      "type": "string"
+    },
+    "in_reply_to_user_id": {
+      "type": "string"
+    },
+    "truncated": {
+      "type": "boolean"
+    },
+    "retweet_count": {
+      "type": "integer"
+    },
+    "tweet_id": {
+      "type": "string"
+    },
+    "in_reply_to_status_id": {
+      "type": "string"
+    },
+    "tweet_created_at": {
+      "type": "datetime"
+    },
+    "favorited": {
+      "type": "boolean"
+    },
+    "full_text": {
+      "type": "text"
+    },
+    "in_reply_to_screen_name": {
+      "type": "string"
+    },
+    "in_reply_to_user_id_str": {
+      "type": "string"
+    }
+  }
+}
