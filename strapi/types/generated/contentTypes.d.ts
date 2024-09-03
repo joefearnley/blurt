@@ -374,22 +374,23 @@ export interface ApiTweetTweet extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    retweeted: Attribute.Boolean;
+    retweeted: Attribute.Boolean & Attribute.DefaultTo<false>;
     source: Attribute.String;
     entities: Attribute.JSON;
     favorite_count: Attribute.Integer;
     in_reply_to_status_id_str: Attribute.String;
     id_str: Attribute.String;
     in_reply_to_user_id: Attribute.String;
-    truncated: Attribute.Boolean;
+    truncated: Attribute.Boolean & Attribute.DefaultTo<false>;
     retweet_count: Attribute.Integer;
     tweet_id: Attribute.String;
     in_reply_to_status_id: Attribute.String;
     tweet_created_at: Attribute.DateTime;
-    favorited: Attribute.Boolean;
+    favorited: Attribute.Boolean & Attribute.DefaultTo<false>;
     full_text: Attribute.Text;
     in_reply_to_screen_name: Attribute.String;
     in_reply_to_user_id_str: Attribute.String;
+    is_reply: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

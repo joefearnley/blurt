@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "retweeted": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "source": {
       "type": "string"
@@ -34,7 +35,8 @@
       "type": "string"
     },
     "truncated": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "retweet_count": {
       "type": "integer"
@@ -49,7 +51,8 @@
       "type": "datetime"
     },
     "favorited": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "full_text": {
       "type": "text"
@@ -59,6 +62,10 @@
     },
     "in_reply_to_user_id_str": {
       "type": "string"
+    },
+    "is_reply": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
