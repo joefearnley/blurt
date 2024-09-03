@@ -1,4 +1,3 @@
-
 import { tweets } from './tweets.js';
 
 const formatCreatedAtDate = createdAt => {
@@ -6,7 +5,7 @@ const formatCreatedAtDate = createdAt => {
     return date.toISOString();
 };
 
-let i = 0;
+// loop through each tweet and post a new entry to strapi
 
 for (const tweet of tweets) {
     const tweetData = tweet.tweet;
@@ -44,6 +43,4 @@ for (const tweet of tweets) {
     const post = await response.json();
 
     console.log(post.data.id);
-
-    i++;
 }
