@@ -4,10 +4,8 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="">
-      <div className="inline-block max-w-lg">
+    <section>
         {children}
-      </div>
     </section>
   );
 }
