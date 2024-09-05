@@ -40,8 +40,8 @@ export default function BlogPage() {
 
   return (
     <div>
-      <Tabs aria-label="Options">
-        <Tab key="tweets" title="Tweets">
+      <Tabs aria-label="Posts">
+        <Tab key="posts" title="Posts">
           {isLoading &&
             <div className="my-6">
               <Spinner color="default" />
@@ -143,7 +143,7 @@ export default function BlogPage() {
             </div>
           ))}
         </Tab>
-        </Tabs>
+      </Tabs>
     </div>
   );
 }

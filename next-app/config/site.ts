@@ -2,11 +2,15 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "blurt",
-  description: "whatever somes to mind",
+  description: "whatever comes to mind",
   navItems: [
     {
       label: "Feed",
       href: "/feed",
+    },
+    {
+      label: "Login",
+      href: "/login",
     },
   ],
   navMenuItems: [
