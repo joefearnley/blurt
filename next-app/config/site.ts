@@ -36,6 +36,13 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
+    github: "https://github.com/joefearnley/blurt",
   },
+  cookieDefaults: {
+    maxAge: 60 * 60 * 24 * 7,
+    path: "/",
+    domain: process.env.HOST ?? "localhost",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  }
 };

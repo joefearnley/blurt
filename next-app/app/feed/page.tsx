@@ -63,8 +63,8 @@ export default function BlogPage() {
                 <CardBody className="px-3 py-0 text-small text-default-600">
                   <p>{post.attributes.full_text}</p>
                   <div className="flex gap-2">
-                  {post.attributes.entities.hashtags.map(hashtag => (
-                    <span className="pt-2 text-default-400">
+                  {post.attributes.entities && post.attributes.entities.hashtags.map(hashtag => (
+                    <span key={hashtag.id} className="pt-2 text-default-400">
                       <a href={`https://twitter.com/hashtag/${hashtag.text}?src=hashtag_click`} target="_blank">#{hashtag.text}</a>
                     </span>
                   ))}
@@ -114,8 +114,8 @@ export default function BlogPage() {
                 <CardBody className="px-3 py-0 text-small text-default-600">
                   <p>{post.attributes.full_text}</p>
                   <div className="flex gap-2">
-                  {post.attributes.entities.hashtags.map(hashtag => (
-                    <span className="pt-2 text-default-400">
+                  {post.attributes.entities && post.attributes.entities.hashtags.map(hashtag => (
+                    <span key={hashtag.id} className="pt-2 text-default-400">
                       <a href={`https://twitter.com/hashtag/${hashtag.text}?src=hashtag_click`} target="_blank">#{hashtag.text}</a>
                     </span>
                   ))}

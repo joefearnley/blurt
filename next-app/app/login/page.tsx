@@ -1,26 +1,32 @@
 "use client";
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Link } from "@nextui-org/link";
 import { Spinner } from "@nextui-org/spinner";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
+import { siteConfig } from "@/config/site";
 import { EyeFilledIcon } from "../../components/EyeFilledIcon.jsx";
 import { EyeSlashFilledIcon } from "../../components/EyeSlashFilledIcon.jsx";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const submitLoginForm = () => {
+    setLoading(true);
+    setError('');
 
     fetch('http://localhost:1337/api/auth/local', {
       method: 'POST',
@@ -34,15 +40,14 @@ export default function LoginPage() {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
-
         if (response.error) {
           setError(response.error.message);
           setLoading(false);
           return;
         }
-  
-        setLoading(false);
+
+        setCookie('blurt-jwt', response.jwt, siteConfig.cookieDefaults);
+        router.push('/feed');
       });
   };
 
@@ -84,6 +89,11 @@ export default function LoginPage() {
             />
             {error ? (
               <div className="text-sm text-danger-300">{error}</div>
+            ) : null }
+            {isLoading ? (
+              <div>
+                <Spinner color="default" />
+              </div>
             ) : null }
           </form>
         </CardBody>
