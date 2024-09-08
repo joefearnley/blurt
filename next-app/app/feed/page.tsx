@@ -5,6 +5,7 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { Spinner } from "@nextui-org/spinner";
+import {Image} from "@nextui-org/image";
 
 export default function BlogPage() {
 
@@ -21,8 +22,10 @@ export default function BlogPage() {
       })
         .then(response => response.json())
         .then(response => {
-          setPosts(response.data);
-          setLoading(false);
+          response.data.forEach(post => {
+            setPosts(response.data);
+            setLoading(false);
+          });
         });
 
         fetch('http://localhost:1337/api/tweets?filters[is_reply][$eq]=true', {
@@ -62,6 +65,16 @@ export default function BlogPage() {
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-600">
                   <p>{post.attributes.full_text}</p>
+                  {post.attributes.entities && post.attributes.entities.media && post.attributes.entities.media.map(mediaItem => (
+                    <div className="media-item my-4">
+                      <Image
+                        height={mediaItem.sizes.small.h}
+                        width={mediaItem.sizes.small.w}
+                        alt={post.attributes.full_text}
+                        src={mediaItem.media_url_https}
+                      />
+                    </div>
+                  ))}
                   <div className="flex gap-2">
                   {post.attributes.entities && post.attributes.entities.hashtags.map((hashtag, i) => (
                     <span key={i} className="pt-2 text-default-400">
@@ -113,6 +126,16 @@ export default function BlogPage() {
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-600">
                   <p>{post.attributes.full_text}</p>
+                  {post.attributes.entities && post.attributes.entities.media && post.attributes.entities.media.map(mediaItem => (
+                    <div className="media-item my-4">
+                      <Image
+                        height={mediaItem.sizes.small.h}
+                        width={mediaItem.sizes.small.w}
+                        alt={post.attributes.full_text}
+                        src={mediaItem.media_url_https}
+                      />
+                    </div>
+                  ))}
                   <div className="flex gap-2">
                   {post.attributes.entities && post.attributes.entities.hashtags.map((hashtag, i) => (
                     <span key={i} className="pt-2 text-default-400">
