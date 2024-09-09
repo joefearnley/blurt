@@ -12,9 +12,19 @@ export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
   const [replies, setReplies] = useState<any[]>([]);
   const [isLoading, setLoading] = useState(true);
+
+  const formatDate = dateString => {
+    let date = new Date(dateString);
+
+    const mediumTime = new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'medium',
+    });
+
+    return mediumTime.format(date);
+  };
  
   useEffect(() => {
-      fetch('http://localhost:1337/api/tweets?filters[is_reply][$eq]=false', {
+      fetch('http://localhost:1337/api/tweets?filters[is_reply][$eq]=false&sort=tweet_created_at:desc', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +38,7 @@ export default function BlogPage() {
           });
         });
 
-        fetch('http://localhost:1337/api/tweets?filters[is_reply][$eq]=true', {
+        fetch('http://localhost:1337/api/tweets?filters[is_reply][$eq]=true&sort=tweet_created_at:desc', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -55,12 +65,15 @@ export default function BlogPage() {
             <div key={post.id} className="mb-6">
               <Card>
                 <CardHeader>
-                  <div className="flex gap-5">
-                    <Avatar isBordered radius="full" size="md" src="https://pbs.twimg.com/profile_images/1706195482/n12108490_39723495_4373.jpg" />
-                    <div className="flex flex-col gap-1 items-start justify-center">
-                      <h4 className="text-small font-semibold leading-none text-default-600">Joe Fearnley</h4>
-                      <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
+                  <div className="flex justify-between w-full">
+                    <div className="flex gap-5 justify-between">
+                      <Avatar isBordered radius="full" size="md" src="https://pbs.twimg.com/profile_images/1706195482/n12108490_39723495_4373.jpg" />
+                      <div className="flex flex-col gap-1 items-start justify-center">
+                        <h4 className="text-small font-semibold leading-none text-default-600">Joe Fearnley</h4>
+                        <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
+                      </div>
                     </div>
+                    <div className="text-small tracking-tight text-default-600">{formatDate(post.attributes.tweet_created_at)}</div>
                   </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-600">
@@ -116,12 +129,15 @@ export default function BlogPage() {
             <div key={post.id} className="mb-6">
               <Card>
                 <CardHeader>
-                  <div className="flex gap-5">
-                    <Avatar isBordered radius="full" size="md" src="https://pbs.twimg.com/profile_images/1706195482/n12108490_39723495_4373.jpg" />
-                    <div className="flex flex-col gap-1 items-start justify-center">
-                      <h4 className="text-small font-semibold leading-none text-default-600">Joe Fearnley</h4>
-                      <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
+                  <div className="flex justify-between w-full">
+                    <div className="flex gap-5 justify-between">
+                      <Avatar isBordered radius="full" size="md" src="https://pbs.twimg.com/profile_images/1706195482/n12108490_39723495_4373.jpg" />
+                      <div className="flex flex-col gap-1 items-start justify-center">
+                        <h4 className="text-small font-semibold leading-none text-default-600">Joe Fearnley</h4>
+                        <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
+                      </div>
                     </div>
+                    <div className="text-small tracking-tight text-default-600">{formatDate(post.attributes.tweet_created_at)}</div>
                   </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-600">
