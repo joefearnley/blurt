@@ -15,8 +15,8 @@ export default function BlogPage() {
   const [isLoading, setLoading] = useState(true);
   const [hasMorePosts, setHasMorePosts] = useState(true);
   const [hasMoreReplies, setHasMoreReplies] = useState(true);
-  const [postsOffset, setPostsOffset] = useState(2);
-  const [postsReplies, setPostsReplies] = useState(2);
+  const [postsOffset, setPostsOffset] = useState(1);
+  const [repliesOffset, setRepliesOffset] = useState(1);
 
   const formatDate = dateString => {
     let date = new Date(dateString);
@@ -29,7 +29,7 @@ export default function BlogPage() {
   };
 
   const fetchMorePosts = () => {
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=false&sort=tweet_created_at:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=false&pagination[page]=${postsOffset}&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,12 +37,17 @@ export default function BlogPage() {
     })
       .then(response => response.json())
       .then(response => {
-        setPosts(response.data);
+
+        if (response.meta.pagination.page > 1) {
+          setPosts((currentPosts) => [...currentPosts, ...response.data]);
+        }
+
         setHasMorePosts(false);
         setLoading(false);
 
         if (response.meta.pagination.page < response.meta.pagination.pageSize) {
           setHasMorePosts(true);
+          setPostsOffset(response.meta.pagination.page + 1);
         }
       });
   };
@@ -62,6 +67,7 @@ export default function BlogPage() {
 
         if (response.meta.pagination.page < response.meta.pagination.pageSize) {
           setHasMoreReplies(true);
+          setRepliesOffset(response.meta.pagination.page + 1);
         }
       });
   };
@@ -106,8 +112,8 @@ export default function BlogPage() {
                       <p>{post.attributes.full_text}</p>
                       {post.attributes.entities &&
                         post.attributes.entities.media &&
-                        post.attributes.entities.media.map(mediaItem => (
-                          <div className="media-item my-4">
+                        post.attributes.entities.media.map((mediaItem, i) => (
+                          <div key={i} className="media-item my-4">
                             <Image
                               height={mediaItem.sizes.small.h}
                               width={mediaItem.sizes.small.w}
@@ -179,8 +185,8 @@ export default function BlogPage() {
                   <p>{post.attributes.full_text}</p>
                   {post.attributes.entities && 
                     post.attributes.entities.media && 
-                    post.attributes.entities.media.map(mediaItem => (
-                      <div className="media-item my-4">
+                    post.attributes.entities.media.map((mediaItem, i) => (
+                      <div key={i} className="media-item my-4">
                         <Image
                           height={mediaItem.sizes.small.h}
                           width={mediaItem.sizes.small.w}
