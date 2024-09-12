@@ -38,10 +38,7 @@ export default function BlogPage() {
       .then(response => response.json())
       .then(response => {
 
-        if (response.meta.pagination.page > 1) {
-          setPosts((currentPosts) => [...currentPosts, ...response.data]);
-        }
-
+        setPosts((currentPosts) => [...currentPosts, ...response.data]);
         setHasMorePosts(false);
         setLoading(false);
 
@@ -53,7 +50,7 @@ export default function BlogPage() {
   };
 
   const fetchMoreReplies = () => {
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/tweets?filters[is_reply][$eq]=true&sort=tweet_created_at:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +58,7 @@ export default function BlogPage() {
     })
       .then(response => response.json())
       .then(response => {
-        setReplies(response.data);
+        setReplies((currentPosts) => [...currentPosts, ...response.data]);
         setLoading(false);
         setHasMoreReplies(false);
 
@@ -74,7 +71,7 @@ export default function BlogPage() {
  
   useEffect(() => {
     fetchMorePosts();
-    // fetchMoreReplies();
+    fetchMoreReplies();
   }, []);
 
   return (
