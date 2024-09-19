@@ -50,7 +50,7 @@ export default function BlogPage() {
   };
 
   const fetchMoreReplies = () => {
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ export default function BlogPage() {
           }
 
             <InfiniteScroll
-              dataLength={posts.length}
+              dataLength={replies.length}
               next={fetchMoreReplies}
               hasMore={hasMoreReplies}
               loader={<Spinner color="default" />}
