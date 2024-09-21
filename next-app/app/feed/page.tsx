@@ -29,6 +29,8 @@ export default function BlogPage() {
   };
 
   const fetchMorePosts = () => {
+    console.log('fetching more posts....');
+
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=false&pagination[page]=${postsOffset}&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
@@ -50,6 +52,8 @@ export default function BlogPage() {
   };
 
   const fetchMoreReplies = () => {
+    console.log('fetching more replies....');
+
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
