@@ -1,0 +1,69 @@
+        <!DOCTYPE HTML>
+        <html>
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <link rel="stylesheet" type="text/css" href="../style.css"/>
+            </head>
+            <body>
+                
+                
+                                    <h1>Check database results using Eloquent's whereRaw</h1>
+                    <p>I&rsquo;ve been playing around with the Laravel Framework lately. Laravel ships with the Eloquent ORM. In the application I am creating I need a way to do a simple search on a text column in a database. The easiest way to do this in MySQL is to taken in the keyword from the form and use the LIKE keyword on that column. </p>
+
+<p>Im my case, I am taking a single text input and searching the name column in a table. I have a function that takes input from a form, creates a search parameter and executes the query:</p>
+
+<pre>
+$parameters = [$searchInput];
+$whereClause = 'upper(name) like upper(?)';
+$results = Table::whereRaw($whereClause, $parameters)-&gt;get();
+</pre>
+
+<p>This is fine, but what if the query returns no results? I don&rsquo;t know if my Google foo is getting dated, but for the life of me I could not find a good way to perform this check. Doing the following with no match on the database column:</p>
+
+<pre>
+$whereClause = 'upper(name) like upper(?)';
+$results = Table::whereRaw($whereClause, $parameters)-&gt;get();
+var_dump($results);
+</pre>
+
+<p>returns the following results:</p>
+
+<pre>
+object(Illuminate\Database\Eloquent\Collection)#191 (1) {
+  ["items":protected]=&gt;
+  array(0) {
+  }
+}
+</pre>
+
+<p>My first thought would be to check the items attribute. It is a protected attribute so I can&rsquo;t access it directly (at least from here) or create a getItems() function on the Table class. The latter didn&rsquo;t seem to work either. That or maybe I wasn&rsquo;t doing it right. </p>
+
+<p>Regardless, I found a solution. If I convert the results to an array (or json as the other option) I could then check if it is empty doing the following:</p>
+
+<pre>
+$whereClause = 'upper(name) like upper(?)';
+$results = Table::whereRaw($whereClause , 
+                                $parameters)-&gt;get()-&gt;toArray();
+  
+if(!empty($results)) {
+  // results were found
+} else {
+  // no results....
+}
+</pre>
+
+<p>There may be an easier way to do this and calling toArray() may cause some extra processing on the application&rsquo;s part but it works. Maybe there will be time to refactor later. Another cool part of this is now I have a simple array to work with making life a little easier in this case.</p>
+                
+                
+                
+                
+                
+                
+                                <div id="footer">
+                <span id="timestamp"> December 1st, 2013 12:00am </span>
+                                                          <span class="tag">dev</span>
+                                                    </div>
+            </body>
+        </html>
+
+        
