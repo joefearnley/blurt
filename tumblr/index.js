@@ -27,20 +27,19 @@ const getPostsFromApi = async () => {
       return posts;
 };
 
+const writePostsFromApi =  async () => {
+    const posts = await getPostsFromApi();
+    console.log(`total posts: ${posts.length}`);
+    fs.writeFileSync('blogposts.json', JSON.stringify(posts));
+};
 
 (async() => {
+    const blogPosts = JSON.parse(fs.readFileSync(`blogposts.json`, 'utf8'));
 
-    const posts = getPostsFromApi();
+    if (blogPosts.length === 0) {
+        await writePostsFromApi();
+    }
 
-    console.log(`total posts: ${posts.length}`);
-  
-    fs.writeFileSync('blogposts.json', JSON.stringify(posts));
-
+    // import posts into Strapi
+    console.log(blogPosts[0]);
 })();
-
-
-const blogPosts = JSON.parse(fs.readFileSync(`blogposts.json`, 'utf8'));
-
-console.log(blogPosts.length);
-
-// import posts into Strapi
