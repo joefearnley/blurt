@@ -1,4 +1,4 @@
-[
+export const blogposts = [
     {
         "type": "text",
         "is_blocks_post_format": false,
