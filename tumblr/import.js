@@ -1,4 +1,4 @@
-import { blogposts } from './blogposts.js'
+import { blogPosts } from './blogposts.js'
 
 const formatCreatedAtDate = createdAt => {
     let date = new Date(createdAt);
@@ -7,30 +7,32 @@ const formatCreatedAtDate = createdAt => {
 
 // loop through each tweet and post a new entry to strapi
 
-for (const blogpostblogposts of blogposts) {
-    const tweetData = tweet.tweet;
+console.log(`\n---------------------------------`);
+console.log(`Importing ${blogPosts.length} blog posts...`);
+console.log(`--------------------------------\n`);
+
+for (const blogPost of blogPosts) {
+
+    console.log(`Importing blog post with ID ${blogPost.id}`);
 
     const body = {
-        retweeted: tweetData.retweeted,
-        source: tweetData.source,
-        entities: tweetData.entities,
-        favorite_count: tweetData.favorite_count,
-        tweet_id: tweetData.id,
-        id_str: tweetData.id_str,
-        in_reply_to_status_id_str: (typeof in_reply_to_status_id_str === 'undefined') ? null: tweetData.in_reply_to_status_id_str,
-        in_reply_to_status_id: (typeof tweetData.in_reply_to_status_id === 'undefined') ? null: tweetData.in_reply_to_status_id,
-        is_reply: (typeof tweetData.in_reply_to_user_id === 'undefined') ? false: true,
-        in_reply_to_user_id: (typeof tweetData.in_reply_to_user_id === 'undefined') ? null: tweetData.in_reply_to_user_id,
-        in_reply_to_screen_name: (typeof tweetData.in_reply_to_screen_name === 'undefined') ? null: tweetData.in_reply_to_screen_name,
-        in_reply_to_user_id_str: (typeof tweetData.in_reply_to_user_id_str === 'undefined') ? null: tweetData.in_reply_to_user_id_str,
-        truncated: tweetData.truncated,
-        retweet_count: tweetData.retweet_count,
-        tweet_created_at: formatCreatedAtDate(tweetData.created_at),
-        favorited: tweetData.favorited,
-        full_text: tweetData.full_text,
+        title: blogPost.title,
+        body: blogPost.body,
+        post_url: blogPost.post_url,
+        data_created: blogPost.data_created,
+        short_url: blogPost.short_url,
+        summary: blogPost.summary,
+        tumblr_id: blogPost.tumblr_id,
+        post_type: blogPost.post_type,
+        format: blogPost.format,
+        caption: blogPost.caption,
+        reblog: blogPost.reblog,
+        trail: blogPost.trail,
+        image_permalink: blogPost.image_permalink,
+        photos: blogPost.photos,
     };
 
-    const response = await fetch('http://localhost:1337/api/tweets', {
+    const response = await fetch('http://localhost:1337/api/tumblr-posts', {
         method: 'POST',
         body: JSON.stringify({
             data: body
@@ -42,5 +44,9 @@ for (const blogpostblogposts of blogposts) {
 
     const post = await response.json();
 
-    console.log(post.data.id);
+    console.log(post);
 }
+
+console.log(`\n---------------------------------`);
+console.log(`Import Complete!`);
+console.log(`---------------------------------\n`);

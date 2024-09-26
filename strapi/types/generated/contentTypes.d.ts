@@ -362,6 +362,51 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
+  collectionName: 'tumblr_posts';
+  info: {
+    singularName: 'tumblr-post';
+    pluralName: 'tumblr-posts';
+    displayName: 'Tumblr Post';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.Text;
+    slug: Attribute.String;
+    post_url: Attribute.String;
+    data_created: Attribute.Date;
+    short_url: Attribute.String;
+    summary: Attribute.Text;
+    tumblr_id: Attribute.String;
+    post_type: Attribute.String;
+    format: Attribute.String;
+    caption: Attribute.Text;
+    reblog: Attribute.JSON;
+    trail: Attribute.JSON;
+    image_permalink: Attribute.String;
+    photos: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tumblr-post.tumblr-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tumblr-post.tumblr-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTweetTweet extends Schema.CollectionType {
   collectionName: 'tweets';
   info: {
@@ -845,6 +890,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::tumblr-post.tumblr-post': ApiTumblrPostTumblrPost;
       'api::tweet.tweet': ApiTweetTweet;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;

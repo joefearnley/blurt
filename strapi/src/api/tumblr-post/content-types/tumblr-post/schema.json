@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tumblr_posts",
+  "info": {
+    "singularName": "tumblr-post",
+    "pluralName": "tumblr-posts",
+    "displayName": "Tumblr Post",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "post_url": {
+      "type": "string"
+    },
+    "data_created": {
+      "type": "date"
+    },
+    "short_url": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "tumblr_id": {
+      "type": "string"
+    },
+    "post_type": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "text"
+    },
+    "reblog": {
+      "type": "json"
+    },
+    "trail": {
+      "type": "json"
+    },
+    "image_permalink": {
+      "type": "string"
+    },
+    "photos": {
+      "type": "json"
+    }
+  }
+}
