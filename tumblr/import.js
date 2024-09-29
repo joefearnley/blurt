@@ -96,10 +96,10 @@ const importPosts = async () => {
     truncatePosts();
 
     // loop through each tumblr post and post a new entry to strapi
-    // console.log(`\n---------------------------------`);
-    // console.log(`Importing ${blogPosts.length} blog posts...`);
-    // console.log(`--------------------------------\n`);
-    // importPosts();
+    console.log(`\n---------------------------------`);
+    console.log(`Importing ${blogPosts.length} blog posts...`);
+    console.log(`--------------------------------\n`);
+    importPosts();
 
     console.log(`\n---------------------------------`);
     console.log(`Import Complete!`);
