@@ -11,12 +11,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function BlogPage() {
 
   const [posts, setPosts] = useState<any[]>([]);
-  const [replies, setReplies] = useState<any[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [hasMorePosts, setHasMorePosts] = useState(true);
-  const [hasMoreReplies, setHasMoreReplies] = useState(true);
   const [postsOffset, setPostsOffset] = useState(1);
-  const [repliesOffset, setRepliesOffset] = useState(1);
 
   const formatDate = dateString => {
     let date = new Date(dateString);
@@ -48,32 +45,9 @@ export default function BlogPage() {
         }
       });
   };
-
-  const fetchMoreReplies = () => {
-    console.log('fetching more replies....');
-
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(response => {
-        setReplies((currentPosts) => [...currentPosts, ...response.data]);
-        setLoading(false);
-        setHasMoreReplies(false);
-
-        if (response.meta.pagination.page < response.meta.pagination.pageSize) {
-          setHasMoreReplies(true);
-          setRepliesOffset(response.meta.pagination.page + 1);
-        }
-      });
-  };
  
   useEffect(() => {
-    fetchMorePosts();
-    fetchMoreReplies();
+    fetchPosts();
   }, []);
 
   return (
@@ -88,7 +62,7 @@ export default function BlogPage() {
 
           <InfiniteScroll
                 dataLength={posts.length}
-                next={fetchMorePosts}
+                next={fetchPosts}
                 hasMore={hasMorePosts}
                 loader={<Spinner color="default" />}
               >
