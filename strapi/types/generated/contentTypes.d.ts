@@ -389,6 +389,7 @@ export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
     trail: Attribute.JSON;
     image_permalink: Attribute.String;
     photos: Attribute.JSON;
+    timestamp: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

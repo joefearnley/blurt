@@ -11,8 +11,8 @@ const getPostsFromApi = async () => {
 
       let posts = [];
       let response = null;
-  
-      for(let i = 1; i < 300; i = i + 50) {
+
+      for (let i = 1; i < 300; i = i + 50) {
           response = await client.blogPosts('joefearnley', {
               offset: i,
               limit: 50,
