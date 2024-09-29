@@ -56,9 +56,10 @@ const importPosts = async () => {
             title: blogPost.title,
             body: blogPost.body,
             post_url: blogPost.post_url,
-            data_created: formatCreatedAtDate(blogPost.date),
+            date_created: formatCreatedAtDate(blogPost.date),
             short_url: blogPost.short_url,
             summary: blogPost.summary,
+            slug: blogPost.slug,
             tumblr_id: blogPost.id,
             post_type: blogPost.type,
             format: blogPost.format,
@@ -95,10 +96,10 @@ const importPosts = async () => {
     truncatePosts();
 
     // loop through each tumblr post and post a new entry to strapi
-    console.log(`\n---------------------------------`);
-    console.log(`Importing ${blogPosts.length} blog posts...`);
-    console.log(`--------------------------------\n`);
-    importPosts();
+    // console.log(`\n---------------------------------`);
+    // console.log(`Importing ${blogPosts.length} blog posts...`);
+    // console.log(`--------------------------------\n`);
+    // importPosts();
 
     console.log(`\n---------------------------------`);
     console.log(`Import Complete!`);

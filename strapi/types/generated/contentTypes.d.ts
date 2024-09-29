@@ -378,7 +378,7 @@ export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
     body: Attribute.Text;
     slug: Attribute.String;
     post_url: Attribute.String;
-    data_created: Attribute.Date;
+    date_created: Attribute.Date;
     short_url: Attribute.String;
     summary: Attribute.Text;
     tumblr_id: Attribute.String;

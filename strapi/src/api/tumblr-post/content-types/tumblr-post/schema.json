@@ -24,7 +24,7 @@
     "post_url": {
       "type": "string"
     },
-    "data_created": {
+    "date_created": {
       "type": "date"
     },
     "short_url": {
