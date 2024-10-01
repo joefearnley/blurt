@@ -8,6 +8,10 @@ export const siteConfig = {
       label: "Feed",
       href: "/feed",
     },
+    {
+      label: "Blog",
+      href: "/blog",
+    },
   ],
   navMenuItems: [
     {

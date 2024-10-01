@@ -59,6 +59,9 @@
     },
     "timestamp": {
       "type": "biginteger"
+    },
+    "tags": {
+      "type": "text"
     }
   }
 }

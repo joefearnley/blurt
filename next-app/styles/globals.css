@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.blog-body p {
+    margin-bottom: 15px;
+}
+
+.blog-body ul {
+    list-style: disc;
+    margin: 20px 30px;
+}
+
+.blog-body ul li {
+    margin-bottom: 10px;
+}
+
+.blog-body pre {
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    white-space: pre-wrap;
+    background: #d3d3d34a;
+    margin: 20px 0;
+    padding: 20px;
+}

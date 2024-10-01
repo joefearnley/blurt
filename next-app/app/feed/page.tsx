@@ -8,7 +8,7 @@ import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function BlogPage() {
+export default function FeedPage() {
 
   const [posts, setPosts] = useState<any[]>([]);
   const [replies, setReplies] = useState<any[]>([]);
