@@ -73,6 +73,9 @@ export default function BlogPage() {
               <h2 className="text-2xl mb-3">{post.attributes.summary}</h2>
               <div className="blog-body">
                 <div dangerouslySetInnerHTML={{ __html: post.attributes.body }} />
+                {post.attributes.post_type === 'photo' && (
+                  <img src={post.attributes.photos[0].original_size.url} />
+                )}
               </div>
             </CardBody>
             <CardFooter className="gap-4">

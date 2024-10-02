@@ -62,6 +62,9 @@
     },
     "tags": {
       "type": "text"
+    },
+    "link_url": {
+      "type": "string"
     }
   }
 }

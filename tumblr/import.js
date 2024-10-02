@@ -70,6 +70,7 @@ const importPosts = async () => {
             photos: blogPost.photos,
             timestamp: blogPost.timestamp,
             tags: blogPost.tags.join(','),
+            link_url: blogPost.url,
         };
     
         const response = await fetch('http://localhost:1337/api/tumblr-posts', {

@@ -362,6 +362,101 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
+  collectionName: 'tumblr_posts';
+  info: {
+    singularName: 'tumblr-post';
+    pluralName: 'tumblr-posts';
+    displayName: 'Tumblr Post';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.Text;
+    slug: Attribute.String;
+    post_url: Attribute.String;
+    date_created: Attribute.Date;
+    short_url: Attribute.String;
+    summary: Attribute.Text;
+    tumblr_id: Attribute.String;
+    post_type: Attribute.String;
+    format: Attribute.String;
+    caption: Attribute.Text;
+    reblog: Attribute.JSON;
+    trail: Attribute.JSON;
+    image_permalink: Attribute.String;
+    photos: Attribute.JSON;
+    timestamp: Attribute.BigInteger;
+    tags: Attribute.Text;
+    link_url: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tumblr-post.tumblr-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tumblr-post.tumblr-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTweetTweet extends Schema.CollectionType {
+  collectionName: 'tweets';
+  info: {
+    singularName: 'tweet';
+    pluralName: 'tweets';
+    displayName: 'Tweet';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    retweeted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    source: Attribute.String;
+    entities: Attribute.JSON;
+    favorite_count: Attribute.Integer;
+    in_reply_to_status_id_str: Attribute.String;
+    id_str: Attribute.String;
+    in_reply_to_user_id: Attribute.String;
+    truncated: Attribute.Boolean & Attribute.DefaultTo<false>;
+    retweet_count: Attribute.Integer;
+    tweet_id: Attribute.String;
+    in_reply_to_status_id: Attribute.String;
+    tweet_created_at: Attribute.DateTime;
+    favorited: Attribute.Boolean & Attribute.DefaultTo<false>;
+    full_text: Attribute.Text;
+    in_reply_to_screen_name: Attribute.String;
+    in_reply_to_user_id_str: Attribute.String;
+    is_reply: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tweet.tweet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tweet.tweet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -788,100 +883,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
-  collectionName: 'tumblr_posts';
-  info: {
-    singularName: 'tumblr-post';
-    pluralName: 'tumblr-posts';
-    displayName: 'Tumblr Post';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.Text;
-    slug: Attribute.String;
-    post_url: Attribute.String;
-    date_created: Attribute.Date;
-    short_url: Attribute.String;
-    summary: Attribute.Text;
-    tumblr_id: Attribute.String;
-    post_type: Attribute.String;
-    format: Attribute.String;
-    caption: Attribute.Text;
-    reblog: Attribute.JSON;
-    trail: Attribute.JSON;
-    image_permalink: Attribute.String;
-    photos: Attribute.JSON;
-    timestamp: Attribute.BigInteger;
-    tags: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::tumblr-post.tumblr-post',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::tumblr-post.tumblr-post',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTweetTweet extends Schema.CollectionType {
-  collectionName: 'tweets';
-  info: {
-    singularName: 'tweet';
-    pluralName: 'tweets';
-    displayName: 'Tweet';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    retweeted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    source: Attribute.String;
-    entities: Attribute.JSON;
-    favorite_count: Attribute.Integer;
-    in_reply_to_status_id_str: Attribute.String;
-    id_str: Attribute.String;
-    in_reply_to_user_id: Attribute.String;
-    truncated: Attribute.Boolean & Attribute.DefaultTo<false>;
-    retweet_count: Attribute.Integer;
-    tweet_id: Attribute.String;
-    in_reply_to_status_id: Attribute.String;
-    tweet_created_at: Attribute.DateTime;
-    favorited: Attribute.Boolean & Attribute.DefaultTo<false>;
-    full_text: Attribute.Text;
-    in_reply_to_screen_name: Attribute.String;
-    in_reply_to_user_id_str: Attribute.String;
-    is_reply: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::tweet.tweet',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::tweet.tweet',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -892,6 +893,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::tumblr-post.tumblr-post': ApiTumblrPostTumblrPost;
+      'api::tweet.tweet': ApiTweetTweet;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -900,8 +903,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::tumblr-post.tumblr-post': ApiTumblrPostTumblrPost;
-      'api::tweet.tweet': ApiTweetTweet;
     }
   }
 }
