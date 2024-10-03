@@ -70,11 +70,37 @@ export default function BlogPage() {
               </div>
             </CardHeader>
             <CardBody className="px-3 py-0 text-small text-default-600">
-              <h2 className="text-2xl mb-3">{post.attributes.summary}</h2>
+              <h2 className="text-2xl mb-3">
+              {post.attributes.post_type === 'link' ? (
+                  <div>
+                    <a href={post.attributes.link_url} className="underline flex" target="_blank">
+                      <span className="mr-4">{post.attributes.summary}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                      </svg>
+                    </a>
+                  </div>
+                ) : (
+                  <div>
+                    {post.attributes.summary}
+                  </div>
+                )}
+                </h2>
               <div className="blog-body">
                 <div dangerouslySetInnerHTML={{ __html: post.attributes.body }} />
                 {post.attributes.post_type === 'photo' && (
                   <img src={post.attributes.photos[0].original_size.url} />
+                )}
+                {post.attributes.trail[0] && (
+                  <div className="mt-6 ml-2">
+                    <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[0].content }} />
+                  </div>
+                )}
+                {post.attributes.trail[1] && (
+                  <div className="mt-6 ml-2">
+                    <hr className="pt-6" />
+                    <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[1].content }} />
+                  </div>
                 )}
               </div>
             </CardBody>
