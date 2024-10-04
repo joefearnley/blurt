@@ -392,6 +392,7 @@ export interface ApiTumblrPostTumblrPost extends Schema.CollectionType {
     timestamp: Attribute.BigInteger;
     tags: Attribute.Text;
     link_url: Attribute.String;
+    player: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

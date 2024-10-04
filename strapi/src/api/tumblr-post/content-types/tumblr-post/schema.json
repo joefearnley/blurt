@@ -65,6 +65,9 @@
     },
     "link_url": {
       "type": "string"
+    },
+    "player": {
+      "type": "json"
     }
   }
 }

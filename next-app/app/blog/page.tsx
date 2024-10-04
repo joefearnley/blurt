@@ -88,14 +88,28 @@ export default function BlogPage() {
                 </h2>
               <div className="blog-body">
                 <div dangerouslySetInnerHTML={{ __html: post.attributes.body }} />
+                
                 {post.attributes.post_type === 'photo' && (
-                  <img src={post.attributes.photos[0].original_size.url} />
+                  <div className="my-4 flex flex-wrap gap-4">
+                    {post.attributes.photos.map((photo, i) => (
+                      <div key={i} className="">
+                          <img src={photo.original_size.url} />
+                      </div>
+                    ))}
+
+                  </div>
                 )}
+
+                {post.attributes.post_type === 'video' &&  (
+                  <div dangerouslySetInnerHTML={{ __html: post.attributes.player[1].embed_code }} />
+                )}
+
                 {post.attributes.trail[0] && (
                   <div className="mt-6 ml-2">
                     <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[0].content }} />
                   </div>
                 )}
+
                 {post.attributes.trail[1] && (
                   <div className="mt-6 ml-2">
                     <hr className="pt-6" />
