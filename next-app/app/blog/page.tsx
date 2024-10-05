@@ -5,12 +5,15 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
 import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
+import {Pagination, PaginationItem, PaginationCursor} from "@nextui-org/pagination";
+import { user } from "@nextui-org/theme";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setLoading] = useState(true);
-  const [hasMorePosts, setHasMorePosts] = useState(true);
   const [postsOffset, setPostsOffset] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const formatDate = dateString => {
     let date = new Date(dateString);
@@ -33,13 +36,11 @@ export default function BlogPage() {
       .then(response => {
 
         setPosts(response.data);
-        setHasMorePosts(false);
+        setTotalPages(response.meta.pagination.pageCount);
+        setCurrentPage(response.meta.pagination.page);
+        setPostsOffset(response.meta.pagination.page < response.meta.pagination.pageSize ? response.meta.pagination.page + 1 : postsOffset);
         setLoading(false);
-
-        if (response.meta.pagination.page < response.meta.pagination.pageSize) {
-          setHasMorePosts(true);
-          setPostsOffset(response.meta.pagination.page + 1);
-        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
       });
   };
  
@@ -93,24 +94,27 @@ export default function BlogPage() {
                   <div className="my-4 flex flex-wrap gap-4">
                     {post.attributes.photos.map((photo, i) => (
                       <div key={i} className="">
-                          <img src={photo.original_size.url} />
+                        <Image
+                            alt={post.attributes.summary}
+                            src={photo.original_size.url}
+                          />
                       </div>
                     ))}
 
                   </div>
                 )}
 
-                {post.attributes.post_type === 'video' &&  (
+                {post.attributes.post_type === 'video' && post.attributes.player[1].embed_code !== false && (
                   <div dangerouslySetInnerHTML={{ __html: post.attributes.player[1].embed_code }} />
                 )}
 
-                {post.attributes.trail[0] && (
+                {post.attributes.trail && post.attributes.trail[0] && (
                   <div className="mt-6 ml-2">
                     <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[0].content }} />
                   </div>
                 )}
 
-                {post.attributes.trail[1] && (
+                {post.attributes.trail && post.attributes.trail[1] && (
                   <div className="mt-6 ml-2">
                     <hr className="pt-6" />
                     <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[1].content }} />
@@ -130,6 +134,13 @@ export default function BlogPage() {
           </Card>
         </div>
       ))}
+
+      <Pagination 
+        total={totalPages}
+        initialPage={1}
+        page={currentPage} 
+        showControls={true}
+        onChange={fetchPosts} />
     </div>
   );
 }
