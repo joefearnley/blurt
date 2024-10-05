@@ -34,7 +34,6 @@ export default function BlogPage() {
     })
       .then(response => response.json())
       .then(response => {
-
         setPosts(response.data);
         setTotalPages(response.meta.pagination.pageCount);
         setCurrentPage(response.meta.pagination.page);
@@ -137,6 +136,7 @@ export default function BlogPage() {
 
       <Pagination 
         total={totalPages}
+        color={'default'}
         initialPage={1}
         page={currentPage} 
         showControls={true}
