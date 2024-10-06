@@ -106,19 +106,6 @@ export default function BlogPage() {
                 {post.attributes.post_type === 'video' && post.attributes.player[1].embed_code !== false && (
                   <div dangerouslySetInnerHTML={{ __html: post.attributes.player[1].embed_code }} />
                 )}
-
-                {post.attributes.trail && post.attributes.trail[0] && (
-                  <div className="mt-6 ml-2">
-                    <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[0].content }} />
-                  </div>
-                )}
-
-                {post.attributes.trail && post.attributes.trail[1] && (
-                  <div className="mt-6 ml-2">
-                    <hr className="pt-6" />
-                    <div dangerouslySetInnerHTML={{ __html: post.attributes.trail[1].content }} />
-                  </div>
-                )}
               </div>
             </CardBody>
             <CardFooter className="gap-4">
