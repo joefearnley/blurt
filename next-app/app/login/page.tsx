@@ -46,6 +46,8 @@ export default function LoginPage() {
           return;
         }
 
+        console.log('wrting jwt to cookie...');
+
         setCookie('blurt-jwt', response.jwt, siteConfig.cookieDefaults);
         router.push('/feed');
       });

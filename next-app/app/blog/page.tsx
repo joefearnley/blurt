@@ -5,8 +5,8 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
 import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
-import {Pagination, PaginationItem, PaginationCursor} from "@nextui-org/pagination";
-import { user } from "@nextui-org/theme";
+import { Pagination } from "@nextui-org/pagination";
+import { isAuthenticated } from "../../utils/Auth";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -45,6 +45,8 @@ export default function BlogPage() {
  
   useEffect(() => {
     fetchPosts();
+
+    isAuthenticated();
   }, []);
 
   return (
