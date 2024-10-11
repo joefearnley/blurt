@@ -14,6 +14,7 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { isAuthenticated } from "../utils/Auth";
 
 export const Navbar = () => {
   return (
@@ -46,9 +47,15 @@ export const Navbar = () => {
             </NavbarItem>
           ))}
         </ul>
-        <NavbarItem key={"/login"}>
-          <NextLink href={"login"}>Log In</NextLink>
-        </NavbarItem>
+        { !isAuthenticated() ?
+          <NavbarItem key={"/login"}>
+            <NextLink href={"login"}>{ isAuthenticated() } | Log In</NextLink>
+          </NavbarItem>
+          :
+          <NavbarItem key={"/logout"}>
+            <NextLink href={"logout"}>{ isAuthenticated() }  | Log Out</NextLink>
+          </NavbarItem>
+        }
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>

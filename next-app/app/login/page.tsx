@@ -10,7 +10,6 @@ import { Link } from "@nextui-org/link";
 import { Spinner } from "@nextui-org/spinner";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { siteConfig } from "@/config/site";
 import { EyeFilledIcon } from "../../components/EyeFilledIcon.jsx";
 import { EyeSlashFilledIcon } from "../../components/EyeSlashFilledIcon.jsx";
 
@@ -46,9 +45,7 @@ export default function LoginPage() {
           return;
         }
 
-        console.log('wrting jwt to cookie...');
-
-        setCookie('blurt-jwt', response.jwt, siteConfig.cookieDefaults);
+        setCookie('blurt-jwt', response.jwt);
         router.push('/feed');
       });
   };

@@ -6,6 +6,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
 import { Pagination } from "@nextui-org/pagination";
+import { redirect } from 'next/navigation';
 import { isAuthenticated } from "../../utils/Auth";
 
 export default function BlogPage() {
@@ -46,7 +47,10 @@ export default function BlogPage() {
   useEffect(() => {
     fetchPosts();
 
-    isAuthenticated();
+    const authenticated = isAuthenticated();
+    if (!authenticated) {
+      redirect('/');
+    }
   }, []);
 
   return (
