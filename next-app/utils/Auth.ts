@@ -7,7 +7,7 @@ export const isAuthenticated = () => {
     return false;
   }
 
-  // validate jqt?
+  // validate jwt?
 
   return true;
 };

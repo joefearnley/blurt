@@ -27,7 +27,7 @@ export default function BlogPage() {
   };
 
   const fetchPosts = () => {
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tumblr-posts?&pagination[page]=${postsOffset}&sort=date_created:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tumblr-posts?&pagination[page]=${postsOffset}&pagination[pageSize]=30&sort=date_created:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -72,15 +72,15 @@ export default function BlogPage() {
                     <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
                   </div>
                 </div>
-                <div className="text-small tracking-tight text-default-600">{formatDate(post.attributes.date_created)}</div>
+                <div className="text-small tracking-tight text-default-600">{formatDate(post.date_created)}</div>
               </div>
             </CardHeader>
             <CardBody className="px-3 py-0 text-small text-default-600">
               <h2 className="text-2xl mb-3">
-              {post.attributes.post_type === 'link' ? (
+              {post.post_type === 'link' ? (
                   <div>
-                    <a href={post.attributes.link_url} className="underline flex" target="_blank">
-                      <span className="mr-4">{post.attributes.summary}</span>
+                    <a href={post.link_url} className="underline flex" target="_blank">
+                      <span className="mr-4">{post.summary}</span>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                       </svg>
@@ -88,19 +88,19 @@ export default function BlogPage() {
                   </div>
                 ) : (
                   <div>
-                    {post.attributes.summary}
+                    {post.summary}
                   </div>
                 )}
                 </h2>
               <div className="blog-body">
-                <div dangerouslySetInnerHTML={{ __html: post.attributes.body }} />
+                <div dangerouslySetInnerHTML={{ __html: post.body }} />
                 
-                {post.attributes.post_type === 'photo' && (
+                {post.post_type === 'photo' && (
                   <div className="my-4 flex flex-wrap gap-4">
-                    {post.attributes.photos.map((photo, i) => (
+                    {post.photos.map((photo, i) => (
                       <div key={i} className="">
                         <Image
-                            alt={post.attributes.summary}
+                            alt={post.summary}
                             src={photo.original_size.url}
                           />
                       </div>
@@ -109,14 +109,14 @@ export default function BlogPage() {
                   </div>
                 )}
 
-                {post.attributes.post_type === 'video' && post.attributes.player[1].embed_code !== false && (
-                  <div dangerouslySetInnerHTML={{ __html: post.attributes.player[1].embed_code }} />
+                {post.post_type === 'video' && post.player[1].embed_code !== false && (
+                  <div dangerouslySetInnerHTML={{ __html: post.player[1].embed_code }} />
                 )}
               </div>
             </CardBody>
             <CardFooter className="gap-4">
               <div className="flex gap-2 items-center">
-                {post.attributes.tags && post.attributes.tags.split(',').map((hashtag, i) => (
+                {post.tags && post.tags.split(',').map((hashtag, i) => (
                   <span key={i} className="pt-2 text-default-400">
                     <a href={`/tagged/${hashtag}`} target="_blank">#{hashtag}</a>
                   </span>

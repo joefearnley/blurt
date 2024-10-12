@@ -29,9 +29,7 @@ export default function FeedPage() {
   };
 
   const fetchMorePosts = () => {
-    console.log('fetching more posts....');
-
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=false&pagination[page]=${postsOffset}&sort=tweet_created_at:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=false&pagination[page]=${postsOffset}&pagination[pageSize]=20&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -52,9 +50,7 @@ export default function FeedPage() {
   };
 
   const fetchMoreReplies = () => {
-    console.log('fetching more replies....');
-
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&sort=tweet_created_at:desc`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tweets?filters[is_reply][$eq]=true&pagination[page]=${repliesOffset}&pagination[pageSize]=20&sort=tweet_created_at:desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -106,25 +102,25 @@ export default function FeedPage() {
                             <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
                           </div>
                         </div>
-                        <div className="text-small tracking-tight text-default-600">{formatDate(post.attributes.tweet_created_at)}</div>
+                        <div className="text-small tracking-tight text-default-600">{formatDate(post.tweet_created_at)}</div>
                       </div>
                     </CardHeader>
                     <CardBody className="px-3 py-0 text-small text-default-600">
-                      <p>{post.attributes.full_text}</p>
-                      {post.attributes.entities &&
-                        post.attributes.entities.media &&
-                        post.attributes.entities.media.map((mediaItem, i) => (
+                      <p>{post.full_text}</p>
+                      {post.entities &&
+                        post.entities.media &&
+                        post.entities.media.map((mediaItem, i) => (
                           <div key={i} className="media-item my-4">
                             <Image
                               height={mediaItem.sizes.small.h}
                               width={mediaItem.sizes.small.w}
-                              alt={post.attributes.full_text}
+                              alt={post.full_text}
                               src={mediaItem.media_url_https}
                             />
                           </div>
                         ))}
                       <div className="flex gap-2">
-                      {post.attributes.entities && post.attributes.entities.hashtags.map((hashtag, i) => (
+                      {post.entities && post.entities.hashtags.map((hashtag, i) => (
                         <span key={i} className="pt-2 text-default-400">
                           <a href={`https://twitter.com/hashtag/${hashtag.text}?src=hashtag_click`} target="_blank">#{hashtag.text}</a>
                         </span>
@@ -138,7 +134,7 @@ export default function FeedPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                           </svg>
                         </p>
-                        <p className="text-default-400 text-small">{post.attributes.retweet_count}</p>
+                        <p className="text-default-400 text-small">{post.retweet_count}</p>
                       </div>
                       <div className="flex gap-1 items-center">
                         <p className="text-default-400 text-small">
@@ -146,7 +142,7 @@ export default function FeedPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                           </svg>
                         </p>
-                        <p className="text-default-400 text-small">{post.attributes.favorite_count}</p>
+                        <p className="text-default-400 text-small">{post.favorite_count}</p>
                       </div>
                     </CardFooter>
                   </Card>
@@ -179,25 +175,25 @@ export default function FeedPage() {
                         <h5 className="text-small tracking-tight text-default-400">@joefearnley</h5>
                       </div>
                     </div>
-                    <div className="text-small tracking-tight text-default-600">{formatDate(post.attributes.tweet_created_at)}</div>
+                    <div className="text-small tracking-tight text-default-600">{formatDate(post.tweet_created_at)}</div>
                   </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-600">
-                  <p>{post.attributes.full_text}</p>
-                  {post.attributes.entities && 
-                    post.attributes.entities.media && 
-                    post.attributes.entities.media.map((mediaItem, i) => (
+                  <p>{post.full_text}</p>
+                  {post.entities && 
+                    post.entities.media && 
+                    post.entities.media.map((mediaItem, i) => (
                       <div key={i} className="media-item my-4">
                         <Image
                           height={mediaItem.sizes.small.h}
                           width={mediaItem.sizes.small.w}
-                          alt={post.attributes.full_text}
+                          alt={post.full_text}
                           src={mediaItem.media_url_https}
                         />
                       </div>
                     ))}
                   <div className="flex gap-2">
-                  {post.attributes.entities && post.attributes.entities.hashtags.map((hashtag, i) => (
+                  {post.entities && post.entities.hashtags.map((hashtag, i) => (
                     <span key={i} className="pt-2 text-default-400">
                       <a href={`https://twitter.com/hashtag/${hashtag.text}?src=hashtag_click`} target="_blank">#{hashtag.text}</a>
                     </span>
@@ -211,7 +207,7 @@ export default function FeedPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                       </svg>
                     </p>
-                    <p className="text-default-400 text-small">{post.attributes.retweet_count}</p>
+                    <p className="text-default-400 text-small">{post.retweet_count}</p>
                   </div>
                   <div className="flex gap-1 items-center">
                     <p className="text-default-400 text-small">
@@ -219,7 +215,7 @@ export default function FeedPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                       </svg>
                     </p>
-                    <p className="text-default-400 text-small">{post.attributes.favorite_count}</p>
+                    <p className="text-default-400 text-small">{post.favorite_count}</p>
                   </div>
                 </CardFooter>
               </Card>
