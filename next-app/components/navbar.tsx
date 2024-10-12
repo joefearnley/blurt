@@ -20,7 +20,7 @@ import { isAuthenticated } from "../utils/Auth";
 
 export const Navbar = () => {
   const authenticated = isAuthenticated();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
@@ -41,7 +41,6 @@ export const Navbar = () => {
             </Link>
           </NavbarItem>
         ))}
-        
       </NavbarContent>
 
       <NavbarContent
@@ -49,8 +48,8 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem>
-          <Link key={"/logout"} href={"/logout"}>
-            Log In
+          <Link href={authenticated ? "/logout" : "/login"}>
+            {authenticated ? "Log Out" : "Log In"}
           </Link>
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
@@ -58,32 +57,27 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-      </NavbarMenu>
+      {authenticated && (  
+        <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+          <ThemeSwitch />
+          <NavbarMenuToggle />
+          <NavbarMenu>
+            <div className="mx-4 mt-2 flex flex-col gap-2">
+              {siteConfig.navMenuItems.map((item, i) => (
+                <NavbarMenuItem key={`${item}-${i}`}>
+                  <Link
+                    color="foreground"
+                    href={item.href}
+                    size="lg"
+                  >
+                    {item.label}
+                  </Link>
+                </NavbarMenuItem>
+              ))}
+            </div>
+          </NavbarMenu>
+        </NavbarContent>
+      )}
     </NextUINavbar>
   );
 };
