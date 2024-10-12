@@ -11,14 +11,12 @@ import {
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import { usePathname } from 'next/navigation'
-import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { isAuthenticated } from "../utils/Auth";
-import path from "path";
 
 export const Navbar = () => {
   const authenticated = isAuthenticated();
@@ -33,8 +31,12 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         {siteConfig.navItems.map((item, i) => (
-          <NavbarItem key={i} isActive={pathname === item.href}>
-            <Link href={item.href}  color="foreground">
+          <NavbarItem 
+            key={i} 
+            isActive={pathname === item.href}
+            aria-current={pathname === item.href ? "page" : ""}
+            >
+            <Link href={item.href} color="foreground">
               {item.label}
             </Link>
           </NavbarItem>
@@ -46,16 +48,11 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        { authenticated ? (
-            <NavbarItem key={"/logout"}>
-              <NextLink href={"logout"}> Log Out</NextLink>
-            </NavbarItem>
-          ) : (
-            <NavbarItem key={"/login"}>
-              <NextLink href={"login"}>Log In</NextLink>
-            </NavbarItem>
-          )
-        }
+        <NavbarItem>
+          <Link key={"/logout"} href={"/logout"}>
+            Log In
+          </Link>
+        </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
@@ -78,7 +75,7 @@ export const Navbar = () => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
