@@ -48,7 +48,7 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem>
-          <Link href={authenticated ? "/logout" : "/login"}>
+          <Link href={authenticated ? "/logout" : "/login"} color="foreground">
             {authenticated ? "Log Out" : "Log In"}
           </Link>
         </NavbarItem>
