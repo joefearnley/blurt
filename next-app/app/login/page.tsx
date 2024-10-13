@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from 'next/navigation';
 import { setCookie } from "cookies-next";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
@@ -19,7 +19,6 @@ export default function LoginPage() {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const router = useRouter();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -27,7 +26,7 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
-    fetch('http://localhost:1337/api/auth/local', {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}//api/auth/local`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ export default function LoginPage() {
         }
 
         setCookie('blurt-jwt', response.jwt);
-        router.push('/feed');
+        redirect('/feed');
       });
   };
 

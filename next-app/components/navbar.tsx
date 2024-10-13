@@ -13,7 +13,6 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
-  DropdownSection,
   DropdownItem
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
@@ -38,7 +37,7 @@ export const Navbar = () => {
             <p className="font-bold text-xl text-inherit">BLURT</p>
           </NextLink>
         </NavbarBrand>
-        {siteConfig.navItems.map((item, i) => (
+        {authenticated && siteConfig.navItems.map((item, i) => (
           <NavbarItem key={i} isActive={pathname === item.href}>
             <Link href={item.href} color="foreground">
               {item.label}
@@ -50,36 +49,44 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent
+      {authenticated ? (
+        <NavbarContent
+            className="hidden sm:flex basis-1/5 sm:basis-full"
+            justify="end"
+          >
+            <Dropdown>
+              <DropdownTrigger>
+                <Button variant="light">
+                  @joefearnley
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                {siteConfig.navMenuItems.map((item, i) => (
+                  <DropdownItem key={`${i}`} variant="flat">
+                    <Link href={item.href} color="foreground">
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+        </NavbarContent>
+      ) : (
+          <NavbarContent
           className="hidden sm:flex basis-1/5 sm:basis-full"
           justify="end"
-        >
-        {authenticated ? (
-          <Dropdown>
-            <DropdownTrigger>
-              <Button variant="light">
-                @joefearnley
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                </svg>
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
-              {siteConfig.navMenuItems.map((item, i) => (
-                <DropdownItem key={`${i}`} variant="flat">
-                  <Link href={item.href} color="foreground">
-                    {item.label}
-                  </Link>
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        ): (
-          <NavbarItem>
-            <Link href={"/login"} color="foreground">Log In</Link>
-          </NavbarItem>
-        )}
-      </NavbarContent>
+          >
+            <NavbarItem>
+              <Link href={"/login"} color="foreground">Log In</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href={"/signup"} color="foreground">Sign Up</Link>
+            </NavbarItem>
+        </NavbarContent>
+      )}
 
       {authenticated && (  
         <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
