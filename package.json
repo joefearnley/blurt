@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/joefearnley/blurt/issues"
   },
-  "homepage": "https://github.com/joefearnley/blurt#readme"
+  "homepage": "https://github.com/joefearnley/blurt#readme",
+  "dependencies": {
+    "@nextui-org/dropdown": "^2.1.31",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/theme": "^2.2.11",
+    "framer-motion": "^11.11.8",
+    "tailwindcss": "^3.4.13"
+  }
 }
