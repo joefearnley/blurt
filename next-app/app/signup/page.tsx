@@ -12,10 +12,10 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { EyeFilledIcon } from "../../components/EyeFilledIcon.jsx";
 import { EyeSlashFilledIcon } from "../../components/EyeSlashFilledIcon.jsx";
-import { isAuthenticated } from "../../utils/Auth";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -23,26 +23,26 @@ export default function LoginPage() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  if (isAuthenticated()) {
-    redirect('/dashboard');
-  }
-  
-  const submitLoginForm = () => {
+  const submitSignupForm = () => {
     setLoading(true);
     setError('');
 
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/local/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         identifier: username,
+        email: email,
         password: password,
       }),
     })
       .then(response => response.json())
       .then(response => {
+
+        console.log(response);
+
         if (response.error) {
           setError(response.error.message);
           setLoading(false);
@@ -64,7 +64,7 @@ export default function LoginPage() {
       <Card className="mx-auto max-w-[600px]">
         <CardHeader className="flex gap-6">
           <div className="flex flex-col">
-            <p className="text-lg">Login</p>
+            <p className="text-lg">Sign up for an Account</p>
           </div>
         </CardHeader>
         <Divider/>
@@ -77,7 +77,14 @@ export default function LoginPage() {
               variant="bordered"
               placeholder="enter your @username"
               onChange={(event) => setUsername(event.target.value)}
-              onClear={() => console.log("input cleared")}
+            />
+            <Input
+              isClearable
+              type="email"
+              label="Email Address"
+              variant="bordered"
+              placeholder="enter your emailaddress@domain.com"
+              onChange={(event) => setEmail(event.target.value)}
             />
             <Input
               label="Password"
@@ -109,11 +116,11 @@ export default function LoginPage() {
         <CardFooter className="flex justify-between">
           <Button 
             color="default"
-            onClick={submitLoginForm}
+            onClick={submitSignupForm}
           >
-            Log In
+            Sign Up
           </Button>
-          <Link href="/signup" className="text-sm text-default-500">Sign Up</Link>
+          <Link href="/login" className="text-sm text-default-500">Log In</Link>
         </CardFooter>
       </Card>
     </div>
