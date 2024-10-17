@@ -78,7 +78,7 @@ export const Navbar = () => {
           className="hidden sm:flex basis-1/5 sm:basis-full"
           justify="end"
           >
-            <NavbarItem>
+            <NavbarItem textValue="Log In">
               <Link href={"/login"} color="foreground">Log In</Link>
             </NavbarItem>
             <NavbarItem>
@@ -94,7 +94,7 @@ export const Navbar = () => {
           <NavbarMenu>
             <div className="mx-4 mt-2 flex flex-col gap-2">
               {siteConfig.navMenuItems.map((item, i) => (
-                <NavbarMenuItem key={`${item.href}-${i}`}>
+                <NavbarMenuItem key={`${item.href}-${i}`} textValue={item.label}>
                   <Link href={item.href} color="foreground" size="lg">
                     {item.label}
                   </Link>
