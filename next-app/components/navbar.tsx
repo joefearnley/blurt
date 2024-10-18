@@ -37,10 +37,12 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         {authenticated && siteConfig.navItems.map((item, i) => (
-          <NavbarItem key={i} isActive={pathname === item.href}>
-            <Link href={item.href} color="foreground">
+          <NavbarItem 
+            key={i} 
+            isActive={pathname === item.href} 
+            as={Link}
+            href={item.href}>
               {item.label}
-            </Link>
           </NavbarItem>
         ))}
         <NavbarItem className="hidden sm:flex gap-2">
@@ -75,14 +77,17 @@ export const Navbar = () => {
         </NavbarContent>
       ) : (
           <NavbarContent
-          className="hidden sm:flex basis-1/5 sm:basis-full"
-          justify="end"
-          >
-            <NavbarItem textValue="Log In">
-              <Link href={"/login"} color="foreground">Log In</Link>
+            className="hidden sm:flex basis-1/5 sm:basis-full"
+            justify="end">
+            <NavbarItem
+              as={Link}
+              href={"/login"}>
+                Log In
             </NavbarItem>
-            <NavbarItem>
-              <Link href={"/signup"} color="foreground">Sign Up</Link>
+            <NavbarItem
+              as={Link}
+              href={"/signup"}>
+                Sign Up
             </NavbarItem>
         </NavbarContent>
       )}
@@ -94,10 +99,11 @@ export const Navbar = () => {
           <NavbarMenu>
             <div className="mx-4 mt-2 flex flex-col gap-2">
               {siteConfig.navMenuItems.map((item, i) => (
-                <NavbarMenuItem key={`${item.href}-${i}`} textValue={item.label}>
-                  <Link href={item.href} color="foreground" size="lg">
+                <NavbarMenuItem
+                  key={`${item.href}-${i}`}
+                  as={Link}
+                  href={"/signup"}>
                     {item.label}
-                  </Link>
                 </NavbarMenuItem>
               ))}
             </div>
