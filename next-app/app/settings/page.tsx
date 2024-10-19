@@ -11,7 +11,7 @@ export default function SettingsPage() {
   useEffect(() => {
     console.log(getCookie('blurt-user'));
 
-    // setUser(getCookie('key'));
+    setUser(getCookie('key'));
   }, []);
 
   return (
