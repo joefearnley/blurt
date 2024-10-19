@@ -39,10 +39,8 @@ export const Navbar = () => {
         {authenticated && siteConfig.navItems.map((item, i) => (
           <NavbarItem 
             key={i} 
-            isActive={pathname === item.href} 
-            as={Link}
-            href={item.href}>
-              {item.label}
+            isActive={pathname === item.href}>
+              <Link color="foreground" href={item.href}>{item.label}</Link>
           </NavbarItem>
         ))}
         <NavbarItem className="hidden sm:flex gap-2">

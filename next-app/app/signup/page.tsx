@@ -116,7 +116,7 @@ export default function SignupPage() {
         <CardFooter className="flex justify-between">
           <Button 
             color="default"
-            onClick={submitSignupForm}
+            onPress={submitSignupForm}
           >
             Sign Up
           </Button>

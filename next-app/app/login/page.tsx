@@ -109,7 +109,7 @@ export default function LoginPage() {
         <CardFooter className="flex justify-between">
           <Button 
             color="default"
-            onClick={submitLoginForm}
+            onPress={submitLoginForm}
           >
             Log In
           </Button>
