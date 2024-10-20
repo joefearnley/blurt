@@ -2,12 +2,11 @@
 
 import React from "react";
 import { useState } from "react";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import { setCookie } from "cookies-next";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Link } from "@nextui-org/link";
-import { Spinner } from "@nextui-org/spinner";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { EyeFilledIcon } from "../../components/EyeFilledIcon.jsx";
@@ -20,11 +19,11 @@ export default function LoginPage() {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-
+  const router = useRouter();
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   if (isAuthenticated()) {
-    redirect('/dashboard');
+    router.push('/dashboard');
   }
   
   const submitLoginForm = () => {
@@ -55,7 +54,7 @@ export default function LoginPage() {
           username : response.user.username,
         }));
 
-        redirect('/dashboard');
+        router.push('/dashboard');
       });
   };
 
@@ -98,17 +97,14 @@ export default function LoginPage() {
             {error ? (
               <div className="text-sm text-danger-300">{error}</div>
             ) : null }
-            {isLoading ? (
-              <div>
-                <Spinner color="default" />
-              </div>
-            ) : null }
           </form>
         </CardBody>
         <Divider/>
         <CardFooter className="flex justify-between">
           <Button 
             color="default"
+            variant="flat"
+            isLoading={isLoading}
             onPress={submitLoginForm}
           >
             Log In

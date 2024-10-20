@@ -79,11 +79,13 @@ export const Navbar = () => {
             justify="end">
             <NavbarItem
               as={Link}
+              color="foreground"
               href={"/login"}>
                 Log In
             </NavbarItem>
             <NavbarItem
               as={Link}
+              color="foreground"
               href={"/signup"}>
                 Sign Up
             </NavbarItem>
