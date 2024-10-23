@@ -37,7 +37,10 @@ export const PasswordResetForm = (props) => {
     })
       .then(response => response.json())
       .then(response => {
-
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
