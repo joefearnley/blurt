@@ -17,6 +17,7 @@ export const UserAccountSettingsForm = (props) => {
 
   const updateSettings  = event => {
     setLoading(true);
+    setError('');
 
     const token = getCookie('blurt-jwt');
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/users/${user.id}`;
@@ -38,23 +39,15 @@ export const UserAccountSettingsForm = (props) => {
       .then(response => {
         setLoading(false);
 
-        console.log(response);
-
         if (response.error) {
           setError(response.error.message);
           return;
         }
 
-        console.log('setting message...');
-
         setSuccessMessage('Settings updated.');
         setShowSuccessMessage(true);
       });
   }
-
-  const closeSuccessMessage = event => {
-
-  };
 
   const updateField = event => {
     const { name, value } = event.target;

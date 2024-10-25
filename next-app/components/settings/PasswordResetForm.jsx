@@ -11,23 +11,26 @@ import { EyeFilledIcon } from "../../components/EyeFilledIcon.jsx";
 import { EyeSlashFilledIcon } from "../../components/EyeSlashFilledIcon.jsx";
 
 export const PasswordResetForm = (props) => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   
   const updatePassword = event => {
-    const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/auth/change-password`;
+    const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/auth/change-password`;
     const token = getCookie('blurt-jwt');
+    setIsLoading(true);
+    setErrors([]);
 
     fetch(url, {
       method: 'POST',
       headers: {
         Authorization: `BEARER ${token}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         currentPassword: currentPassword,
@@ -37,10 +40,30 @@ export const PasswordResetForm = (props) => {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        if (response.error) {
+          let validationErrors = [];
+
+          if (response.error.details.errors) {
+            validationErrors = response.error.details.errors.map(error => error.message);
+          } else {
+            validationErrors.push(response.error.message);
+          }
+
+          setErrors(validationErrors);
+          setIsLoading(false);
+          return;
+        }
+
+        setCookie('blurt-jwt', response.jwt);
+        setCookie('blurt-user', JSON.stringify({
+          id : response.user.id,
+          username : response.user.username,
+        }));
       })
       .catch(error => {
         console.log(error);
+        setErrors(error);
+        setIsLoading(false);
       });
   }
 
@@ -71,7 +94,7 @@ export const PasswordResetForm = (props) => {
             label="Current Password"
             variant="bordered"
             placeholder="enter your current password"
-            onChange={(event) => currentPassword(event.target.value)}
+            onChange={(event) => setCurrentPassword(event.target.value)}
             endContent={
               <button className="focus:outline-none" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
                 {isVisible ? (
@@ -115,9 +138,9 @@ export const PasswordResetForm = (props) => {
             }
             type={isVisible ? "text" : "password"}
           />
-          {error ? (
-            <div className="text-sm text-danger-300">{error}</div>
-          ) : null }
+          {errors && errors.map((errorMessage, i) => (
+            <div key={i} className="text-sm text-danger-300">{errorMessage}</div>
+          ))}
         </form>
       </CardBody>
       <Divider/>

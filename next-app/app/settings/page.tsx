@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { getCookie } from "cookies-next";
 import { UserAccountSettingsForm } from "../../components/settings/UserAccountSettingsForm.jsx"
 import { PasswordResetForm } from "../../components/settings/PasswordResetForm.jsx"
 
