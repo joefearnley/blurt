@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { getCookie } from "cookies-next";
