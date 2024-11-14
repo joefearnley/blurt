@@ -1,27 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getCookie } from "cookies-next";
 import { title } from "@/components/primitives";
 
 export default function DashboardPage() {
   const [numberOfPosts, setNumberOfPosts] = useState(0);
 
   useEffect(() => {
-    const token = getCookie('blurt-jwt');
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/tumblr-posts?sort=date_created:desc`;
-  
-    console.log(token);
 
     fetch(url, {
       headers: {
-        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        setNumberOfPosts(response.meta.pagination.total);
       });
   }, []);
 
