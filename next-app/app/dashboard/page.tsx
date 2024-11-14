@@ -15,7 +15,7 @@ export default function DashboardPage() {
 
     fetch(url, {
       headers: {
-        Authorization: `BEARER ${token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     })
